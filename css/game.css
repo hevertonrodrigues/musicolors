@@ -1,0 +1,43 @@
+.ball {
+  border-radius: 100%;
+  background-color:red;
+  position:absolute;
+  color: #FFFFFF;
+  font-size: 36px;
+  text-align:center;
+}
+
+
+#one {
+  background-color:#2ECC40;
+  display: none;
+}
+
+#two{
+  background-color:#FFDC00;
+  display: none;
+}
+
+#three{
+  background-color:#7FDBFF;
+  display: none;
+}
+
+#four {
+  background-color:#FF4136;
+  display: none;
+}
+
+#five {
+  background-color:#FF851B;
+  display: none;
+}
+
+#six {
+  display: none;
+}
+
+#seven {
+  background-color:#F012BE;
+  display: none;
+}
