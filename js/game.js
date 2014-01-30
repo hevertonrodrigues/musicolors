@@ -4,17 +4,16 @@ var gamePaused = false;
 var waiting = true;
 var score = 0;
 var colorIndex = 0;
-var gameStyle = 1;
+var gameStyle = 2;
 
 
 $( document ).ready( function()
 {
-
   startGame();
-
 
   $( '.ball' ).on( 'click', function(){
     var ball = $( this );
+    checkColors( ball );
     $( this ).fadeOut( 200 );
     setTimeout( function(){
       ball.fadeIn( 200 );
@@ -100,17 +99,120 @@ function addColor()
   highligh();
 }
 
+function checkColors( color )
+{
+  if (! waiting && ! gamePaused)
+  {
+    if ( colorList.length > playerColors.length )
+    {
+      //[self playSound:[NSNumber numberWithInt:(int)sender.tag]];
+      //[playerColors addObject:[NSNumber numberWithInt:(int)sender.tag]];
+      playerColors.push( parseInt( $( color ).attr( 'data-id' ) ) );
 
+      var pass = true;
+      var i = 0;
+      while ( i < playerColors.length )
+      {
+        if ( colorList[i] != playerColors[i] )
+        {
+          pass = false;
+          //[self loseGame];
+          console.log( 'lose' );
+        }
+          i++;
+      }
+      if ( colorList.length == playerColors.length && JSON.stringify( colorList ) === JSON.stringify( playerColors ) && pass )
+      {
+        nextLevel();
+      }
+    }
+  }
+}
+
+function nextLevel()
+{
+  if ( ! waiting ) {
+    if ( gameStyle == 2) {
+      directNext();
+    } else{
+//      gamePaused = true;
+//      [self waiting:YES];
+//      score++;
+//      [scoreDisplay setText:[NSString stringWithFormat:@"%i", score]];
+//      [playerColors removeAllObjects];
+//
+//      messageView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, 280, 280)];
+//      [messageView setAlpha:0];
+//      [gameView addSubview:messageView];
+//
+//      UIImageView *bgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280, 280)];
+//      [bgImage setImage:[UIImage imageNamed:@"messageViewBG"]];
+//      [messageView addSubview:bgImage];
+//
+//      messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 280, 50)];
+//      [messageLabel setTextAlignment:NSTextAlignmentCenter];
+//      [messageLabel setText:winText];
+//      [messageLabel setTextColor:[Util colorWithHexString:@"34508e"]];
+//      [messageLabel setBackgroundColor:[UIColor clearColor]];
+//      [messageView addSubview:messageLabel];
+//
+//      messageButton = [[UIButton alloc] initWithFrame:CGRectMake(70, 180, 140, 50)];
+//      [messageButton setTitle:nextLevelText forState:UIControlStateNormal];
+//      [messageButton setTitleColor:[Util colorWithHexString:@"eff7f7"] forState:UIControlStateNormal];
+//      [messageButton setBackgroundColor:[Util colorWithHexString:@"34508e"]];
+//      [messageButton addTarget:self action:@selector(clearScreenAndContinueGame:) forControlEvents:UIControlEventTouchUpInside];
+//      [messageView addSubview:messageButton];
+//
+//      [UIView beginAnimations:nil context:nil];
+//      [UIView setAnimationDuration:0.3];
+//      [messageButton setAlpha:1];
+//      [messageLabel setAlpha:1];
+//      [messageView setAlpha:1];
+//      [UIView commitAnimations];
+    }
+  }
+}
+
+
+function directNext()
+{
+  score++;
+  //[scoreDisplay setText:[NSString stringWithFormat:@"%i", score]];
+  playerColors.length = 0;
+  gamePaused = false;
+
+  setTimeout( function(){
+      addColor();
+    }, 700 );
+
+//  messageView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenW, screenH)];
+//  [messageView setBackgroundColor:[UIColor whiteColor]];
+//  [messageView setAlpha:0];
+//  [self.view addSubview:messageView];
+//
+//  [UIView beginAnimations:nil context:nil];
+//  [UIView setAnimationDuration:0.2];
+//  [UIView setAnimationDelegate:self];
+//  [UIView setAnimationDidStopSelector:@selector(closeFlash)];
+//  [messageView setAlpha:1];
+//  [UIView commitAnimations];
+//  [self waiting:YES];
+//  [self performSelector:@selector(addColor) withObject:nil afterDelay:0.8];
+
+}
 
 function highligh()
 {
-  if (! gamePaused ) {
-    if ( colorIndex < colorList.length ){
+  if (! gamePaused )
+  {
+    if ( colorIndex < colorList.length )
+    {
       //[self playSound:[colorList objectAtIndex:colorIndex]];
       c = colorList[colorIndex];
       changeColor( c );
 
-      if ( gameStyle == 2) {
+      if ( gameStyle == 2)
+      {
         setTimeout( function(){
           backColor( c );
         }, 200 );
@@ -126,11 +228,13 @@ function highligh()
         }, 700 );
       }
       colorIndex++;
-    } else {
+    } else
+    {
       colorIndex = 0;
       changeWaiting( false );
     }
-  } else {
+  } else
+  {
      setTimeout( function(){
       highligh();
     }, 400 );
