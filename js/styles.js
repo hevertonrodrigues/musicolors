@@ -15,6 +15,14 @@ $( document ).ready( function() {
   } );
 
 
+  $( '#score' ).css( {
+    width: screenW,
+    height: screenH / 10,
+    textAlign: 'center',
+    lineHeight: '' + ballSize + 'px',
+  } );
+
+
   $( '#one' ).css( {
     left: ( screenW / 2 ) - ( ballSize * 1.2 ),
     top: ( screenH / 2 ) - ( ballSize * 1.8 )

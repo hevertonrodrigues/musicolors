@@ -1,3 +1,8 @@
+body {
+  overflow: hidden;
+}
+
+
 .ball {
   border-radius: 100%;
   background-color:red;
@@ -7,6 +12,23 @@
   text-align:center;
 }
 
+#blinkBG {
+  background-color: #FFFFFF;
+  display: none;
+  position:absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#waiting, #score {
+  text-align: center;
+  width: 100%;
+  color: #0074D9;
+}
+
+#waiting {
+  display:none;
+}
 
 #one {
   background-color:#2ECC40;
@@ -41,3 +63,42 @@
   background-color:#F012BE;
   display: none;
 }
+
+#nextScreen {
+  background-color: #FFFFFF;
+  display: none;
+  position:absolute;
+  width: 100%;
+  height: 100%;
+}
+
+
+#nextScreen #nextButton {
+  background-color: #001F3F;
+  width: 50%;
+  padding: 10px;
+  color: #FFFFFF;
+  margin: auto;
+  text-align: center;
+}
+
+
+#loseScreen {
+  background-color: #FFFFFF;
+  display: none;
+  position:absolute;
+  width: 100%;
+  height: 100%;
+}
+
+
+#loseScreen #loseButton {
+  background-color: #001F3F;
+  width: 50%;
+  padding: 10px;
+  color: #FFFFFF;
+  margin: auto;
+  text-align: center;
+}
+
+

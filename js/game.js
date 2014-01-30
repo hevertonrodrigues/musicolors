@@ -4,20 +4,39 @@ var gamePaused = false;
 var waiting = true;
 var score = 0;
 var colorIndex = 0;
-var gameStyle = 2;
-
+var gameStyle = 1;
+var blink;
 
 $( document ).ready( function()
 {
   startGame();
 
   $( '.ball' ).on( 'click', function(){
-    var ball = $( this );
-    checkColors( ball );
-    $( this ).fadeOut( 200 );
-    setTimeout( function(){
-      ball.fadeIn( 200 );
-    }, 200 );
+    if( ! waiting )
+    {
+      var ball = $( this );
+      checkColors( ball );
+      $( this ).fadeOut( 100 );
+      setTimeout( function(){
+        ball.fadeIn( 100 );
+      }, 100 );
+    }
+  });
+
+  $( '#nextButton' ).on( 'click', function(){
+      $( '#nextScreen' ).fadeOut( 100 );
+      setTimeout( function(){
+        gamePaused = false;
+        addColor();
+      }, 200 );
+  });
+
+  $( '#loseButton' ).on( 'click', function(){
+      $( '#loseScreen' ).fadeOut( 100 );
+      setTimeout( function(){
+        gamePaused = false;
+        addColor();
+      }, 200 );
   });
 
 });
@@ -70,25 +89,30 @@ function startGame()
 
   setTimeout( function(){
     $( '#four' ).text( '' );
+    $( '#score' ).text( '0' );
     addColor();
   }, 4500 );
+
+  changeWaiting( false );
 
 }
 
 function changeWaiting( status )
 {
-//    if (status && ! gamePaused) {
-//        [self highlightWaiting];
-//        highlightTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-//                                                          target:self
-//                                                        selector:@selector(highlightWaiting)
-//                                                        userInfo:nil
-//                                                         repeats:YES];
-//
-//    } else {
-//        [highlightTimer invalidate];
-//    }
-    waiting = status;
+  if (status && ! gamePaused) {
+    blink = setInterval( function(){
+      $( '#waiting' ).fadeOut( 200 );
+      setTimeout( function(){
+        $( '#waiting' ).fadeIn( 200 );
+      }, 200);
+    }, 400 );
+  } else {
+    clearInterval( blink );
+    setTimeout( function(){
+      $( '#waiting' ).fadeOut();
+    }, 200 );
+  }
+  waiting = status;
 }
 
 
@@ -106,7 +130,6 @@ function checkColors( color )
     if ( colorList.length > playerColors.length )
     {
       //[self playSound:[NSNumber numberWithInt:(int)sender.tag]];
-      //[playerColors addObject:[NSNumber numberWithInt:(int)sender.tag]];
       playerColors.push( parseInt( $( color ).attr( 'data-id' ) ) );
 
       var pass = true;
@@ -116,8 +139,8 @@ function checkColors( color )
         if ( colorList[i] != playerColors[i] )
         {
           pass = false;
-          //[self loseGame];
-          console.log( 'lose' );
+          loseGame();
+          $( '#score' ).text( '0' );
         }
           i++;
       }
@@ -129,46 +152,35 @@ function checkColors( color )
   }
 }
 
+function loseGame()
+{
+  if ( ! waiting )
+  {
+    gamePaused = true;
+    changeWaiting( true );
+
+    colorList.length = 0;
+    playerColors.length = 0;
+    $( '#score' ).text( 0 );
+
+    $( '#loseScreen' ).fadeIn();
+  }
+}
+
+
+
 function nextLevel()
 {
   if ( ! waiting ) {
     if ( gameStyle == 2) {
       directNext();
+      changeWaiting( true );
     } else{
-//      gamePaused = true;
-//      [self waiting:YES];
-//      score++;
-//      [scoreDisplay setText:[NSString stringWithFormat:@"%i", score]];
-//      [playerColors removeAllObjects];
-//
-//      messageView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, 280, 280)];
-//      [messageView setAlpha:0];
-//      [gameView addSubview:messageView];
-//
-//      UIImageView *bgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 280, 280)];
-//      [bgImage setImage:[UIImage imageNamed:@"messageViewBG"]];
-//      [messageView addSubview:bgImage];
-//
-//      messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, 280, 50)];
-//      [messageLabel setTextAlignment:NSTextAlignmentCenter];
-//      [messageLabel setText:winText];
-//      [messageLabel setTextColor:[Util colorWithHexString:@"34508e"]];
-//      [messageLabel setBackgroundColor:[UIColor clearColor]];
-//      [messageView addSubview:messageLabel];
-//
-//      messageButton = [[UIButton alloc] initWithFrame:CGRectMake(70, 180, 140, 50)];
-//      [messageButton setTitle:nextLevelText forState:UIControlStateNormal];
-//      [messageButton setTitleColor:[Util colorWithHexString:@"eff7f7"] forState:UIControlStateNormal];
-//      [messageButton setBackgroundColor:[Util colorWithHexString:@"34508e"]];
-//      [messageButton addTarget:self action:@selector(clearScreenAndContinueGame:) forControlEvents:UIControlEventTouchUpInside];
-//      [messageView addSubview:messageButton];
-//
-//      [UIView beginAnimations:nil context:nil];
-//      [UIView setAnimationDuration:0.3];
-//      [messageButton setAlpha:1];
-//      [messageLabel setAlpha:1];
-//      [messageView setAlpha:1];
-//      [UIView commitAnimations];
+      gamePaused = true;
+      changeWaiting( true );
+      $( '#score' ).text( parseInt( $( '#score' ).text() ) + 1 );
+      playerColors.length = 0;
+      $( '#nextScreen' ).fadeIn();
     }
   }
 }
@@ -176,14 +188,23 @@ function nextLevel()
 
 function directNext()
 {
-  score++;
   //[scoreDisplay setText:[NSString stringWithFormat:@"%i", score]];
+  $( '#score' ).text( parseInt( $( '#score' ).text() ) + 1 );
   playerColors.length = 0;
   gamePaused = false;
 
   setTimeout( function(){
+      $( '#blinkBG' ).fadeIn( 100 );
+    }, 200 );
+
+  setTimeout( function(){
+      $( '#blinkBG' ).fadeOut( 100 );
+    }, 200 );
+
+  setTimeout( function(){
       addColor();
     }, 700 );
+
 
 //  messageView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenW, screenH)];
 //  [messageView setBackgroundColor:[UIColor whiteColor]];
