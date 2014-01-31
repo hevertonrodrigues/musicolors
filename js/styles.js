@@ -8,6 +8,16 @@ $( document ).ready( function() {
 
   ballSize = screenW / 4;
 
+
+  $( '.button' ).css( {
+    width: ballSize * 2,
+    height: ballSize * 0.8,
+    lineHeight: '' + ( ballSize * 0.8 ) + 'px',
+    left: ( screenW / 2 ) - ballSize,
+    top: ( screenH / 2 ) - ballSize
+  } );
+
+
   $( '.ball' ).css( {
     width: ballSize,
     height: ballSize,
@@ -21,6 +31,9 @@ $( document ).ready( function() {
     textAlign: 'center',
     lineHeight: '' + ballSize + 'px',
   } );
+
+
+
 
 
   $( '#one' ).css( {
