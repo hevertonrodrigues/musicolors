@@ -2,7 +2,22 @@ body {
   overflow: hidden;
 }
 
+/*
+ * CSS to main screen elements
+ */
+.button {
+  background-color:#001F3F;
+  text-decoration: none;
+  text-align: center;
+  color:#FFFFFF;
+  position: absolute;
+  border-radius: 100%;
+}
 
+
+/*
+ * CSS to game screen elements
+ */
 .ball {
   border-radius: 100%;
   background-color:red;
@@ -101,4 +116,8 @@ body {
   text-align: center;
 }
 
-
+#loseScreen #messageLabel {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}

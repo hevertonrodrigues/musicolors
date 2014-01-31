@@ -4,7 +4,7 @@ var gamePaused = false;
 var waiting = true;
 var score = 0;
 var colorIndex = 0;
-var gameStyle = 1;
+var gameStyle = 2;
 var blink;
 
 $( document ).ready( function()
@@ -33,6 +33,7 @@ $( document ).ready( function()
 
   $( '#loseButton' ).on( 'click', function(){
       $( '#loseScreen' ).fadeOut( 100 );
+      $( '#score' ).text( 0 );
       setTimeout( function(){
         gamePaused = false;
         addColor();
@@ -140,7 +141,6 @@ function checkColors( color )
         {
           pass = false;
           loseGame();
-          $( '#score' ).text( '0' );
         }
           i++;
       }
@@ -161,7 +161,6 @@ function loseGame()
 
     colorList.length = 0;
     playerColors.length = 0;
-    $( '#score' ).text( 0 );
 
     $( '#loseScreen' ).fadeIn();
   }
