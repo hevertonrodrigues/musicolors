@@ -18,6 +18,29 @@ $( document ).ready( function() {
   } );
 
 
+
+  $( '#pauseButton' ).css( {
+    width: ballSize / 2,
+    height: ballSize / 2,
+    right: marginX / 2,
+    top: marginY / 4,
+    lineHeight: '' + ballSize / 1.75 + 'px'
+  } );
+
+
+  $( '#messageLabel' ).css( {
+    marginTop: marginY * 2
+  } );
+  $( '#finishScore' ).css( {
+    marginTop: marginY// / 2
+  } );
+  $( '#loseButton' ).css( {
+    marginTop: marginY// / 2
+  } );
+
+
+
+
   $( '.ball' ).css( {
     width: ballSize,
     height: ballSize,
