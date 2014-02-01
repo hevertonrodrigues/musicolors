@@ -17,8 +17,6 @@ $( document ).ready( function() {
     top: ( screenH / 2 ) - ballSize
   } );
 
-
-
   $( '#pauseButton' ).css( {
     width: ballSize / 2,
     height: ballSize / 2,
@@ -26,7 +24,6 @@ $( document ).ready( function() {
     top: marginY / 4,
     lineHeight: '' + ballSize / 1.75 + 'px'
   } );
-
 
   $( '#messageLabel' ).css( {
     marginTop: marginY * 2
@@ -36,6 +33,18 @@ $( document ).ready( function() {
   } );
   $( '#loseButton' ).css( {
     marginTop: marginY// / 2
+  } );
+
+
+
+  $( '#pauseMessageLabel' ).css( {
+    marginTop: marginY * 2
+  } );
+  $( '#backButton' ).css( {
+    marginTop: marginY
+  } );
+  $( '#exitButton' ).css( {
+    marginTop: marginY
   } );
 
 

@@ -143,3 +143,38 @@ body {
   font-size: 20px;
   margin: auto;
 }
+
+#pauseScreen {
+  background-color: #FFFFFF;
+  //display: none;
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  top:0;
+}
+
+#pauseScreen #backButton {
+  background-color: #001F3F;
+  width: 50%;
+  padding: 10px;
+  color: #FFFFFF;
+  margin: auto;
+  text-align: center;
+}
+
+#pauseScreen #exitButton {
+  background-color: #001F3F;
+  width: 50%;
+  padding: 10px;
+  color: #FFFFFF;
+  margin: auto;
+  text-align: center;
+}
+
+#pauseScreen #pauseMessageLabel {
+  width: 100%;
+  text-align: center;
+  width: 50%;
+  font-size: 22px;
+  margin: auto;
+}
