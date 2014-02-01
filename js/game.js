@@ -10,6 +10,13 @@ var blink;
 $( document ).ready( function()
 {
   startGame();
+  $( '#startGameButton' ).fadeIn( 500 );
+
+
+  $( '#startGameButton' ).on( 'click', function(){
+    $( '#startGameButton' ).fadeOut( 100 );
+  });
+
 
   $( '.ball' ).on( 'click', function(){
     if( ! waiting )
@@ -21,6 +28,26 @@ $( document ).ready( function()
         ball.fadeIn( 100 );
       }, 100 );
     }
+  });
+
+
+
+
+  $( '#pauseButton' ).on( 'click', function(){
+      $( '#pauseScreen' ).fadeIn( 100 );
+      gamePaused = true;
+  });
+
+  $( '#backButton' ).on( 'click', function(){
+      $( '#pauseScreen' ).fadeOut( 100 );
+      setTimeout( function(){
+        gamePaused = false;
+      }, 150 );
+  });
+
+  $( '#exitButton' ).on( 'click', function(){
+    $( '#pauseScreen' ).fadeOut( 100 );
+      window.location.href='index.html';
   });
 
   $( '#nextButton' ).on( 'click', function(){
@@ -120,8 +147,10 @@ function changeWaiting( status )
 
 function addColor()
 {
-  colorList.push( Math.floor((Math.random()*7)+1) );
-  highligh();
+  if ( ! gamePaused ) {
+    colorList.push( Math.floor((Math.random()*7)+1) );
+    highligh();
+  }
 }
 
 function checkColors( color )
